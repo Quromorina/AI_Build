@@ -40,7 +40,13 @@ export function load(): TodoState {
       return state;
     }
     const parsed = JSON.parse(raw) as unknown;
-    if (!parsed || typeof parsed !== "object" || !Array.isArray(parsed.items)) {
+    if (
+      !parsed ||
+      typeof parsed !== "object" ||
+      parsed === null ||
+      !("items" in parsed) ||
+      !Array.isArray(parsed.items)
+    ) {
       state = { items: [] };
       return state;
     }
